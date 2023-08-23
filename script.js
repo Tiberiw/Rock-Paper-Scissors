@@ -23,22 +23,64 @@ function getPlayerChoice(choices) {
 
 /* Function that simmulates one game */
 function playRound(playerSelection,computerSelection) {
+
+    console.log(playerSelection);
+    console.log(computerSelection);
+
+    const oldPlayerChoice = parentPlayer.lastElementChild;
+    const oldComputerChoice = parentComputer.firstElementChild;
+
+    let newPlayerChoice = null;
+    let newComputerChoice = null;
+
+    if(playerSelection === 0)
+        newPlayerChoice = rockPlayerImg;
+    if(computerSelection === 0)
+        newComputerChoice = rockComputerImg;
+
+    if(playerSelection === 1)
+        newPlayerChoice = paperPlayerImg;
+    if(computerSelection === 1)
+        newComputerChoice = paperComputerImg;
+
+    if(playerSelection === 2)
+        newPlayerChoice = scissorsPlayerImg;
+    if(computerSelection === 2)
+        newComputerChoice = scissorsComputerImg;
+
+    console.log(parentPlayer);
+    console.log(parentComputer);
+    console.log(oldComputerChoice);
+    console.log(oldPlayerChoice);
+    console.log(newPlayerChoice);
+    console.log(newComputerChoice);
+    parentPlayer.replaceChild(newPlayerChoice,oldPlayerChoice);
+    parentComputer.replaceChild(newComputerChoice,oldComputerChoice);
     
     const choices = ["Rock", "Paper", "Scissors"];
     let winner = calculateWinner(playerSelection,computerSelection);
     updateScore(winner,Score);
 
 
-    let message = "";
+    let titleW = "";
+    let descriptionW = "";
 
-    if(winner === "Computer")
-        message += "You lost! " + choices[computerSelection] + " beats " + choices[playerSelection];
-    else if(winner === "Player")
-        message += "You won! " + choices[playerSelection] + " beats " + choices[computerSelection];
-    else
-        message += "It's a tie!"
+    if(winner === "Computer") {
+        titleW += "You lost!";
+        descriptionW += choices[computerSelection] + " beats " + choices[playerSelection];
+    }
+    else if(winner === "Player") {
+        titleW += "You won!";
+        descriptionW += choices[playerSelection] + " beats " + choices[computerSelection];
+    }
+    else {
+        titleW += "It's a tie!"
+        descriptionW += choices[computerSelection] + " ties " + choices[playerSelection];
 
-    displayRoundWinner(message);
+    }
+        
+
+    displayRoundWinner(titleW,descriptionW);
 
 }
 
@@ -63,10 +105,9 @@ function calculateWinner(playerSelection,computerSelection) {
 /* Function that simulates the entire game */
 function setUp() {    
 
-    Score.playerScore = 0;
-    Score.computerScore = 0;
+    playerScore.textContent = Score.playerScore = 0;
+    computerScore.textContent = Score.computerScore = 0;
     round = 0;
-
 }
 
 /* Function that returns if a game has ended */
@@ -75,8 +116,11 @@ function gameEnd(playerScore, computerScore) {
 }
 
 /* Function that displays the round winner */
-function displayRoundWinner(roundWinner) {
-    console.log(roundWinner);
+function displayRoundWinner(titleW,descriptionW) {
+    title.textContent = titleW;
+    description.textContent = descriptionW;
+    console.log(titleW);
+    console.log(descriptionW);
 }
 
 function updateScore(roundWinner,Score) {
@@ -85,6 +129,9 @@ function updateScore(roundWinner,Score) {
         Score.playerScore++;
     else if(roundWinner === "Computer")
         Score.computerScore++;
+
+    playerScore.textContent = Score.playerScore;
+    computerScore.textContent = Score.computerScore;
 }
 
 /* Function that displays the finnal winner */
@@ -96,7 +143,8 @@ function displayFinnalWinner(Score) {
     else
         winMessage += "Computer is the final winner!";
 
-    console.log(winMessage);
+    title.textContent = winMessage;
+    description.textContent = "Play again?";
 }
 
 /* Function to ask the player of one more game */
@@ -122,6 +170,24 @@ const rockComputerImg = document.createElement('img');
 rockComputerImg.setAttribute('src','./images/rocks.png');
 rockComputerImg.setAttribute('alt','Rock Image');
 
+const paperPlayerImg = document.createElement('img');
+paperPlayerImg.setAttribute('src','./images/parchment.png');
+paperPlayerImg.setAttribute('alt','Paper Image');
+const paperComputerImg = document.createElement('img');
+paperComputerImg.setAttribute('src','./images/parchment.png');
+paperComputerImg.setAttribute('alt','Paper Image');
+
+const scissorsPlayerImg = document.createElement('img');
+scissorsPlayerImg.setAttribute('src','./images/scissors.png');
+scissorsPlayerImg.setAttribute('alt','Scissors Image');
+const scissorsComputerImg = document.createElement('img');
+scissorsComputerImg.setAttribute('src','./images/scissors.png');
+scissorsComputerImg.setAttribute('alt','Scissors Image');
+
+
+const parentPlayer = document.querySelector('.playerside');
+const parentComputer = document.querySelector('.computerside');
+
 
 
 let Score = {
@@ -139,6 +205,8 @@ let roundWinner;
 rockButton.addEventListener('click', () => {
 
     playerChoice = 0;
+
+
     computerChoice = getComputerChoice();
     playRound(playerChoice,computerChoice);
 
@@ -186,9 +254,6 @@ scissorsButton.addEventListener('click', () => {
         displayFinnalWinner(Score);
         regame();
     }
-        
-
-    
 
 });
 
