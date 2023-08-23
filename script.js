@@ -4,8 +4,8 @@ function getRandom() {
 }
 
 /* Function that returns the computer's random choice */
-function getComputerChoice(choices) {
-    return choices[getRandom()];
+function getComputerChoice() {
+    return getRandom();
 }
 
 /* Function that returns the player's choice */
@@ -21,45 +21,39 @@ function getPlayerChoice(choices) {
     return choice;
 }
 
-/* Function that validates the players choice */
-function valid(choice, choices) {
-    if(choice === "" || choice == null)
-        return false;
-    choice = choice[0].toUpperCase() + choice.slice(1).toLowerCase();
-
-    for(let i = 0; i < choices.length; i++)
-        if(choices[i] === choice)
-            return true;
-    
-    return false;
-}
-
 /* Function that simmulates one game */
 function playRound(playerSelection,computerSelection) {
     
+    const choices = ["Rock", "Paper", "Scissors"];
+    let winner = calculateWinner(playerSelection,computerSelection);
+    updateScore(winner,Score);
+
+
     let message = "";
 
-    let winner = calculateWinner(playerSelection,computerSelection);
-
     if(winner === "Computer")
-        message += "You lost! " + computerSelection + " beats " + playerSelection;
+        message += "You lost! " + choices[computerSelection] + " beats " + choices[playerSelection];
     else if(winner === "Player")
-        message += "You won! " + playerSelection + " beats " + computerSelection;
+        message += "You won! " + choices[playerSelection] + " beats " + choices[computerSelection];
     else
         message += "It's a tie!"
 
-    return message;
+    displayRoundWinner(message);
+
 }
 
-/* Function that calculates the winner of a round */
+/* Function that calculates the winner of a round 
+
+    return : "Tie" / "Computer" / "Player"
+*/
 function calculateWinner(playerSelection,computerSelection) {
 
     if(playerSelection === computerSelection)
         return "Tie";
 
-    if ((playerSelection === "Rock" && computerSelection === "Paper") || 
-        (playerSelection === "Paper" && computerSelection === "Scissors") ||
-        (playerSelection === "Scissors" && computerSelection === "Rock"))
+    if ((playerSelection === 0 && computerSelection === 1) || 
+        (playerSelection === 1 && computerSelection === 2) ||
+        (playerSelection === 2 && computerSelection === 0))
         return "Computer";
 
     return "Player";
@@ -67,50 +61,12 @@ function calculateWinner(playerSelection,computerSelection) {
 
 
 /* Function that simulates the entire game */
-function game() {
+function setUp() {    
 
-    let choices = ["Rock", "Paper", "Scissors"];
+    Score.playerScore = 0;
+    Score.computerScore = 0;
+    round = 0;
 
-
-    /* First to five */
-    let play = true;
-    
-    let Score = {
-        playerScore : 0,
-        computerScore : 0
-    };
-
-    let playerChoice;
-    let computerChoice;
-
-    let round = 0;
-    let roundWinner;
-    while(play) {
-
-        // ANNOUNCE THE ROUND
-        console.log("SCORE : \n HUMAN " + Score.playerScore + " VS COMPUTER " + Score.computerScore);
-        console.log("ROUND " + ++round + ":")
-
-        computerChoice = getComputerChoice(choices);
-        playerChoice = getPlayerChoice(choices);
-
-        // play the round and get the winner message.
-        roundWinner = playRound(playerChoice,computerChoice);
-
-        updateScore(roundWinner,Score);
-
-        //ANNOUNCE THE ROUND WINNER
-        displayRoundWinner(roundWinner);
-
-        if(gameEnd(Score.playerScore,Score.computerScore))
-            play = !play;
-        
-    }
-
-    //ANNDOUNCE THE FINAL WINNER
-    displayFinnalWinner(Score);
-
-    regame();
 }
 
 /* Function that returns if a game has ended */
@@ -124,11 +80,10 @@ function displayRoundWinner(roundWinner) {
 }
 
 function updateScore(roundWinner,Score) {
-    let winMessage = roundWinner.split("!")[0];
 
-    if(winMessage === "You won")
+    if(roundWinner === "Player")
         Score.playerScore++;
-    else if(winMessage === "You lost")
+    else if(roundWinner === "Computer")
         Score.computerScore++;
 }
 
@@ -146,13 +101,96 @@ function displayFinnalWinner(Score) {
 
 /* Function to ask the player of one more game */
 function regame() {
-    let replay = prompt("Do you want to replay?","Yes/No");
-
-    if(replay == null)
-        return;
-
-    replay = replay.toLowerCase();
-    replay = replay.charAt(0).toUpperCase() + replay.slice(1);
-    if(replay === "Yes")
-        game();
+    setUp();
 }
+
+
+const rockButton = document.querySelector('button.rock');
+const paperButton = document.querySelector('button.paper');
+const scissorsButton = document.querySelector('button.scissors');
+const title = document.querySelector('h2.result');
+const description = document.querySelector('p.description');
+const playerScore = document.querySelector('span.playerscore');
+const computerScore = document.querySelector('span.computerscore');
+const playerChoiceImg = document.querySelector('.playerside img');
+const computerChoiceImg = document.querySelector('.computerside img');
+
+const rockPlayerImg = document.createElement('img');
+rockPlayerImg.setAttribute('src','./images/rocks.png');
+rockPlayerImg.setAttribute('alt','Rock Image');
+const rockComputerImg = document.createElement('img');
+rockComputerImg.setAttribute('src','./images/rocks.png');
+rockComputerImg.setAttribute('alt','Rock Image');
+
+
+
+let Score = {
+    playerScore : 0,
+    computerScore : 0
+};
+
+let playerChoice;
+let computerChoice;
+
+let round = 0;
+let roundWinner;
+
+
+rockButton.addEventListener('click', () => {
+
+    playerChoice = 0;
+    computerChoice = getComputerChoice();
+    playRound(playerChoice,computerChoice);
+
+    console.log("SCORE : \n HUMAN " + Score.playerScore + " VS COMPUTER " + Score.computerScore);
+    console.log("ROUND " + ++round + ":")
+
+    if(gameEnd(Score.playerScore,Score.computerScore)) {
+        displayFinnalWinner(Score);
+        regame();
+    }
+        
+
+    
+
+});
+paperButton.addEventListener('click', () => {
+
+    playerChoice = 1;
+    computerChoice = getComputerChoice();
+    playRound(playerChoice,computerChoice);
+
+    console.log("SCORE : \n HUMAN " + Score.playerScore + " VS COMPUTER " + Score.computerScore);
+    console.log("ROUND " + ++round + ":")
+
+    if(gameEnd(Score.playerScore,Score.computerScore)) {
+        displayFinnalWinner(Score);
+        regame();
+    }
+        
+
+    
+
+});
+scissorsButton.addEventListener('click', () => {
+
+
+
+    playerChoice = 2;
+    computerChoice = getComputerChoice();
+    playRound(playerChoice,computerChoice);
+    console.log("SCORE : \n HUMAN " + Score.playerScore + " VS COMPUTER " + Score.computerScore);
+    console.log("ROUND " + ++round + ":")
+
+    if(gameEnd(Score.playerScore,Score.computerScore)) {
+        displayFinnalWinner(Score);
+        regame();
+    }
+        
+
+    
+
+});
+
+
+setUp();
