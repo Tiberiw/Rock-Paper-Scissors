@@ -6,15 +6,14 @@ html {
     box-sizing: inherit;
 }
 
+/*
 img {  
-    /*
-    width: 128px;
-    */
-  /*      
+    width: 128px;      
     max-width: 100%;
     height: auto;
-  */  
 }
+
+*/
 
 body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -76,8 +75,6 @@ body {
 .message {
     font-size: 30px;
     background-color: hsla(0, 0%, 0%, 0.5);
-
-
 }
 
 
