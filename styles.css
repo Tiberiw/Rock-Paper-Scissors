@@ -12,7 +12,6 @@ img {
     max-width: 100%;
     height: auto;
 }
-
 */
 
 body {
@@ -29,33 +28,49 @@ body {
 .buttons button {
     border-radius: 30px;
     padding: 16px;
-    background-color: hsla(0, 0%, 0%, 0.5); 
+    background-color: hsla(0, 0%, 0%, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }
 
 .header,
 .footer {
     background-color: hsla(0, 0%, 0%, 0.5);
     color: hsl(42, 100%, 65%);
-    font-weight: 900;
+    font-weight: 700;
+    padding: 15px 0px;
+    margin: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px 0px;
-    margin: 0px;
 }
 
 .header {
-    font-size: 45px;
+    font-size: 50px;
 }
 
 .footer {
-    font-size : 24px;
+    font-size : 20px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
+    
+    width: 80%;
+    padding: 0px;
+    /* MARGIN BETWEEN CONTAINER AND HEADER_FOOTER */
+    margin: 10% 0px;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* justify-content */
 }
 
 .info,
@@ -68,45 +83,38 @@ body {
 
 .info {
     font-size: 45px;
-    background-color: hsla(0, 0%, 0%, 0.5);
-
+    /* MODIFICA */
 }
 
 .message {
     font-size: 30px;
-    background-color: hsla(0, 0%, 0%, 0.5);
+    /* MODIFICA 
+        background-color: hsla(0, 0%, 0%, 0.5);
+
+    */
 }
+
+.buttons {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
 
 
 /*
 .container{
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 800px;
     justify-content: space-between;
-    
     flex: 1;
 }
-
-
 */
 
+
 /*
-
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 25px;
-    margin: 30px;
-    padding: 24px;
-
-}
-
-
-
 .scoreboard {
     display: flex;
     justify-content: space-between;
