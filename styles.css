@@ -6,20 +6,23 @@ html {
     box-sizing: inherit;
 }
 
-/*
-img {  
-    width: 128px;      
-    max-width: 100%;
+h2,
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+img {
+    max-width: 20%;
+    min-width: 210px;
     height: auto;
 }
-*/
 
 body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin: 0px;
     padding: 0px;
     background: url("./images/backgroundimg.jpg") center/cover;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -32,6 +35,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center; 
+    max-width: 100%;
+    height: auto;
+    flex: 1;
 }
 
 .header,
@@ -64,34 +70,25 @@ body {
     
     width: 80%;
     padding: 0px;
-    /* MARGIN BETWEEN CONTAINER AND HEADER_FOOTER */
-    margin: 10% 0px;
-    
+    margin-top: 3%;
+    margin-bottom: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content */
 }
 
-.info,
-.message {
+.result,
+.description {
     color:hsl(208, 100%, 100%);
     font-weight: 700;
-    padding: 12px;
-    margin: 15px;
 }
 
-.info {
+.result {
     font-size: 45px;
-    /* MODIFICA */
 }
 
-.message {
+.description {
     font-size: 30px;
-    /* MODIFICA 
-        background-color: hsla(0, 0%, 0%, 0.5);
-
-    */
 }
 
 .buttons {
@@ -102,62 +99,42 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 32px;
+    width: 75%;
 }
 
-
-
-/*
-.container{
-    justify-content: space-between;
-    flex: 1;
-}
-*/
-
-
-/*
 .scoreboard {
     display: flex;
+    flex: 1;
     justify-content: space-between;
-    min-width: 750px;
-    margin: 30px;
-    padding: 25px;
-}
-
-.player,
-.computer,
-.score {
-    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    gap: 48px;
+    margin-bottom: 5%;
+    margin-top: 3%;
+    
 }
 
 .player,
 .computer {
-    min-width: 450px;
-}
-
-.score {
+    display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.info {
-    color:hsl(208, 100%, 100%);
-    font-weight: 700;
-}
-
-.info.title {
-    padding: 0px;
-    margin: 0px;
-    font-size: 45px;
-}
-
-.info.para {
-    padding: 0px;
-    margin: 0px;
-    font-size: 30px;
-}
-
-.player {
+.playerside,
+.computerside {
     display: flex;
     justify-content: space-between;
+    gap:12px;
+    border-radius: 30px;
+    padding: 16px;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    flex: 1;
 }
 
-*/
+.information {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
