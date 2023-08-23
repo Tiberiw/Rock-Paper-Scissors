@@ -32,12 +32,28 @@ body {
     border-radius: 30px;
     padding: 16px;
     background-color: hsla(0, 0%, 0%, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center; 
+    display: inline-block;
     max-width: 100%;
     height: auto;
     flex: 1;
+
+    box-shadow: 0 20px hsl(0, 0%, 50%);
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+
+.buttons button:hover {
+    background-color: hsla(0, 0%, 0%, 0.7);
+
+}
+
+.buttons button:active {
+    background-color: hsla(0, 0%, 0%, 0.7);
+    ;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 .header,
@@ -84,11 +100,11 @@ body {
 }
 
 .result {
-    font-size: 45px;
+    font-size: 75px;
 }
 
 .description {
-    font-size: 30px;
+    font-size: 50px;
 }
 
 .buttons {
