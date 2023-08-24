@@ -8,19 +8,6 @@ function getComputerChoice() {
     return getRandom();
 }
 
-/* Function that returns the player's choice */
-function getPlayerChoice(choices) {
-
-    let choice = null;
-    while(!valid(choice,choices)) {
-        choice = prompt("Choose : Rock / Paper / Scissors")
-    }
-    
-    choice = choice[0].toUpperCase() + choice.slice(1).toLowerCase();
-
-    return choice;
-}
-
 /* Function that simmulates one game */
 function playRound(playerSelection,computerSelection) {
 
@@ -48,12 +35,6 @@ function playRound(playerSelection,computerSelection) {
     if(computerSelection === 2)
         newComputerChoice = scissorsComputerImg;
 
-    console.log(parentPlayer);
-    console.log(parentComputer);
-    console.log(oldComputerChoice);
-    console.log(oldPlayerChoice);
-    console.log(newPlayerChoice);
-    console.log(newComputerChoice);
     parentPlayer.replaceChild(newPlayerChoice,oldPlayerChoice);
     parentComputer.replaceChild(newComputerChoice,oldComputerChoice);
     
@@ -137,31 +118,161 @@ function updateScore(roundWinner,Score) {
 /* Function that displays the finnal winner */
 function displayFinnalWinner(Score) {
 
-    let winMessage = "";
+    winMessage = "";
     if (Score.playerScore === 5)
         winMessage += "You are the final winner!";
     else
-        winMessage += "Computer is the final winner!";
+        winMessage += "Computer is the final winner! You lost!";
 
     title.textContent = winMessage;
     description.textContent = "Play again?";
 }
 
-/* Function to ask the player of one more game */
-function regame() {
+
+
+
+
+
+
+
+function startGame() {
+    createPage();
     setUp();
 }
 
+function createPage() {
+    document.body.innerHTML = "";
+    const divHeader = document.createElement('div');
+    divHeader.textContent = "Rock, Paper, Scissors";
+    divHeader.classList.add('header');
+    body.appendChild(divHeader);
 
-const rockButton = document.querySelector('button.rock');
-const paperButton = document.querySelector('button.paper');
-const scissorsButton = document.querySelector('button.scissors');
-const title = document.querySelector('h2.result');
-const description = document.querySelector('p.description');
-const playerScore = document.querySelector('span.playerscore');
-const computerScore = document.querySelector('span.computerscore');
-const playerChoiceImg = document.querySelector('.playerside img');
-const computerChoiceImg = document.querySelector('.computerside img');
+    const divContent = document.createElement('div');
+    divContent.classList.add('content');
+
+    const divContainer = document.createElement('div');
+    divContainer.classList.add('container');
+
+    const divInformation = document.createElement('div');
+    divInformation.classList.add('information');
+    title.textContent = "Choose your weapon!";
+    title.classList.add('result');
+    description.textContent = "- First to score 5 points wins -";
+    description.classList.add('description');
+    divInformation.appendChild(title);
+    divInformation.appendChild(description);
+    divContainer.appendChild(divInformation);
+
+    const divScoreboard = document.createElement('div');
+    divScoreboard.classList.add('scoreboard');
+    parentPlayer.classList.add('playerside');
+    parentPlayer.innerHTML = "";
+    divPlayer.innerHTML = "";
+    divPlayer.classList.add('player');
+    const avatarImgPlayer = document.createElement('img');
+    avatarImgPlayer.setAttribute('src','./images/man.png');
+    avatarImgPlayer.setAttribute('alt','man-icon');
+    const pScorePlayer = document.createElement('p');
+    pScorePlayer.classList.add('description');
+    pScorePlayer.textContent = "Score: ";
+    playerScore.classList.add('playerscore');
+    playerScore.textContent = "0";
+    pScorePlayer.appendChild(playerScore);
+    divPlayer.appendChild(avatarImgPlayer);
+    divPlayer.appendChild(pScorePlayer);
+    parentPlayer.appendChild(divPlayer);
+    const playerChoiceImg = document.createElement('img');
+    playerChoiceImg.setAttribute('src','./images/loading.gif');
+    playerChoiceImg.setAttribute('alt','Loading Gif');
+    parentPlayer.appendChild(playerChoiceImg);
+    divScoreboard.appendChild(parentPlayer);
+
+    /* COMPUTERSIDE */
+    parentComputer.classList.add('computerside');
+    parentComputer.innerHTML = "";
+    const computerChoiceImg = document.createElement('img');
+    computerChoiceImg.setAttribute('src','./images/check.png');
+    computerChoiceImg.setAttribute('alt','Check Icon');
+    parentComputer.appendChild(computerChoiceImg);
+    divComputer.innerHTML = "";
+    divComputer.classList.add('computer');
+    const avatarImgComputer = document.createElement('img');
+    avatarImgComputer.setAttribute('src','./images/robot.png');
+    avatarImgComputer.setAttribute('alt','Robot Icon');
+    const pScoreComputer = document.createElement('p');
+    pScoreComputer.textContent = "Score: ";
+    pScoreComputer.classList.add('description');
+    computerScore.textContent = "0";
+    computerScore.classList.add('computerscore');
+    pScoreComputer.appendChild(computerScore);
+    divComputer.appendChild(avatarImgComputer);
+    divComputer.appendChild(pScoreComputer);
+    parentComputer.appendChild(divComputer);
+    divScoreboard.appendChild(parentComputer);
+    divContainer.appendChild(divScoreboard);
+
+    const divButtons = document.createElement('div');
+    divButtons.classList.add('buttons');
+
+    rockButton.classList.add('rock');
+    rockButton.innerHTML = "";
+    const imgRockButton = document.createElement('img');
+    imgRockButton.setAttribute('src','./images/rocks.png');
+    imgRockButton.setAttribute('alt','rock');
+    rockButton.appendChild(imgRockButton);
+
+    paperButton.classList.add('paper');
+    paperButton.innerHTML = "";
+    const imgPaperButton = document.createElement('img');
+    imgPaperButton.setAttribute('src','./images/parchment.png');
+    imgPaperButton.setAttribute('alt','paper');
+    paperButton.appendChild(imgPaperButton);
+
+    scissorsButton.classList.add('scissors');
+    scissorsButton.innerHTML = "";
+    const imgScissorsButton = document.createElement('img');
+    imgScissorsButton.setAttribute('src','./images/scissors.png');
+    imgScissorsButton.setAttribute('alt','scissors');
+    scissorsButton.appendChild(imgScissorsButton);
+
+    divButtons.appendChild(rockButton);
+    divButtons.appendChild(paperButton);
+    divButtons.appendChild(scissorsButton);
+    divContainer.appendChild(divButtons);
+    divContent.appendChild(divContainer);
+    body.appendChild(divContent);
+
+    /* FOOTER */
+    const divFooter = document.createElement('div');
+    divFooter.textContent = "&copy Copyright Tiberiu Amarie - 2023";
+    divFooter.classList.add('footer');
+    body.appendChild(divFooter); 
+
+}
+
+function regame() {
+    body.innerHTML = "";
+    playButton.textContent = "PLAY AGAIN";
+    body.appendChild(divHome);
+
+    const result = document.querySelector('.result');
+    result.textContent = winMessage;
+
+    const info = document.querySelector('.information');
+    const oldDesc = info.lastElementChild;
+    info.removeChild(oldDesc);
+
+    /* add a flex */
+    const divResult = document.createElement('div');
+    divResult.classList.add('buttons');
+    divResult.appendChild(divPlayer);
+    divResult.appendChild(divComputer);
+    info.appendChild(divResult);
+
+}
+
+const body = document.querySelector('body');
+
 
 const rockPlayerImg = document.createElement('img');
 rockPlayerImg.setAttribute('src','./images/rocks.png');
@@ -185,10 +296,7 @@ scissorsComputerImg.setAttribute('src','./images/scissors.png');
 scissorsComputerImg.setAttribute('alt','Scissors Image');
 
 
-const parentPlayer = document.querySelector('.playerside');
-const parentComputer = document.querySelector('.computerside');
-
-
+let winMessage = "";
 
 let Score = {
     playerScore : 0,
@@ -200,6 +308,31 @@ let computerChoice;
 
 let round = 0;
 let roundWinner;
+
+const rockButton = document.createElement('button');
+const paperButton = document.createElement('button');
+const scissorsButton = document.createElement('button');
+const playerScore = document.createElement('span');
+const computerScore = document.createElement('span');
+const title = document.createElement('h2');
+const description = document.createElement('p');
+const parentPlayer = document.createElement('div');
+const parentComputer = document.createElement('div');
+
+
+
+const playButton = document.querySelector('.playbutton');
+const divHome = document.querySelector('.home');
+const divInformationHome = document.querySelector('.information');
+
+const divPlayer = document.createElement('div');
+const divComputer = document.createElement('div');
+
+
+
+playButton.addEventListener('click', () => {
+    startGame()
+});
 
 
 rockButton.addEventListener('click', () => {
@@ -217,9 +350,6 @@ rockButton.addEventListener('click', () => {
         displayFinnalWinner(Score);
         regame();
     }
-        
-
-    
 
 });
 paperButton.addEventListener('click', () => {
@@ -237,9 +367,9 @@ paperButton.addEventListener('click', () => {
     }
         
 
-    
-
 });
+
+
 scissorsButton.addEventListener('click', () => {
 
 
@@ -256,6 +386,3 @@ scissorsButton.addEventListener('click', () => {
     }
 
 });
-
-
-setUp();
