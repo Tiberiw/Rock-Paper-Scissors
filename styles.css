@@ -6,6 +6,11 @@ html {
     box-sizing: inherit;
 }
 
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
 h2,
 p {
     margin: 0px;
@@ -28,7 +33,9 @@ body {
     justify-content: space-between;
 }
 
-.buttons button {
+
+.buttons button,
+.playbutton {
     border-radius: 30px;
     padding: 16px;
     background-color: hsla(0, 0%, 0%, 0.5);
@@ -36,7 +43,6 @@ body {
     max-width: 100%;
     height: auto;
     flex: 1;
-
     box-shadow: 0 20px hsl(0, 0%, 50%);
     cursor: pointer;
     text-decoration: none;
@@ -44,17 +50,27 @@ body {
     border: none;
 }
 
-.buttons button:hover {
+.buttons button:hover,
+.playbutton:hover {
     background-color: hsla(0, 0%, 0%, 0.7);
 
 }
 
-.buttons button:active {
+.buttons button:active,
+.playbutton:active {
     background-color: hsla(0, 0%, 0%, 0.7);
     ;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
+
+.playbutton {
+    color: #fff;
+    font-weight: 900;
+    font-size: 80px;
+    padding: 60px 80px;
+}
+
 
 .header,
 .footer {
@@ -152,5 +168,16 @@ body {
 .information {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 12px;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 100px;
+    margin: 0px;
+    padding: 32px;
 }
